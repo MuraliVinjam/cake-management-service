@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.waracle</groupId>
-	<artifactId>cake-manager</artifactId>
+	<artifactId>cake-management-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>cake-manager</name>
+	<name>cake-management-service</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -80,19 +80,11 @@
 			<version>1.2.11</version>
 		</dependency>
 
-
-		<!-- okta-->
-<!--	<dependency>-->
-<!--			<groupId>com.okta.spring</groupId>-->
-<!--			<artifactId>okta-spring-boot-starter</artifactId>-->
-<!--			<version>1.2.1</version>-->
-<!--		</dependency>-->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 
 	</dependencies>
 
@@ -102,6 +94,9 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+<!--			<plugin>-->
+<!--				<artifactId>maven-surefire-plugin</artifactId>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 

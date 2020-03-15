@@ -40,7 +40,6 @@ public class CakeManagerApplication {
         SpringApplication.run(CakeManagerApplication.class, args);
     }
 
-//TODO - we can use object mapper to load the data from json
     @Bean
     ApplicationRunner init(CakeRepository repository) {
         return args -> {
@@ -101,22 +100,4 @@ public class CakeManagerApplication {
         };
     }
 
-
-////TODO - do we need below?
-//    @Bean
-//    public FilterRegistrationBean<CorsFilter> simpleCorsFilter() {
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        List whitelistUrls = new ArrayList();
-//        whitelistUrls.add("http://localhost:4200");
-//        whitelistUrls.add("http://localhost:3000");
-//        CorsConfiguration config = new CorsConfiguration();
-//        config.setAllowCredentials(true);
-//        config.setAllowedOrigins(whitelistUrls);
-//        config.setAllowedMethods(Collections.singletonList("*"));
-//        config.setAllowedHeaders(Collections.singletonList("*"));
-//        source.registerCorsConfiguration("/**", config);
-//        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
-//        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-//        return bean;
-//    }
 }

@@ -33,7 +33,7 @@ This can be changed in the application.properties if required.
 
 ### Usage
 - This Spring Boot application is configured to listen on port 8080
-- The tomcat logs directory is /tmp/tomcat/cake-manager
+- The tomcat logs directory is /tmp/tomcat/cake-management-servive
 
 ### Authentication
 
@@ -43,9 +43,9 @@ This application provides Authentication via basic auth using the Spring framewo
 
 If running from the command prompt or terminal, go to the project's root folder, then type:
 
-./mvnw clean verify  						(to run unit and integration tests)
+./mvn clean verify  						(to run unit and integration tests)
 
-./mvnw clean package 						(to build the application)
+./mvn clean package 						(to build the application)
     
-./mvnw spring-boot:run 						(to start the application)
+./mvn spring-boot:run 						(to start the application)
 

@@ -19,25 +19,24 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = CakeManagerApplication.class)
 @WebAppConfiguration
 public abstract class AbstractTest {
+
     MockMvc mvc;
-    @Autowired
-    WebApplicationContext webApplicationContext;
+
+    @Autowired WebApplicationContext webApplicationContext;
 
     @Rule
     public ExpectedException exceptionRule = ExpectedException.none();
 
     protected void setUp() {
-        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
+        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).apply(springSecurity()).build();
 
-//                    MockMvcBuilders.webAppContextSetup(context)
-//            .apply(springSecurity())
-//            .defaultRequest(get("/").accept(MediaType.APPLICATION_JSON))
-//            .build();
+    }
 
     String mapToJson(Object obj) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
