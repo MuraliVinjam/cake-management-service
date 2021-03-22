@@ -1,52 +1,49 @@
 package com.waracle.cakemanager.jpa;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-import java.util.Optional;
-
-@RunWith(SpringRunner.class)
 @SpringBootTest
-public class CakeRepositoryTest {
+class CakeRepositoryTest {
 
-    @Autowired private CakeRepository cakeRepository;
+    private static final String TITLE_1 = "Breakfast cake 1";
+    private static final String TITLE_2 = "Breakfast cake 2";
+    private static final String DESCRIPTION = "this is amazing cake";
+    private static final String IMAGE = "breakfast.jpg";
+
+    @Autowired
+    private CakeRepository cakeRepository;
 
     @Test
-    public void testFindByName() {
-        String cakeName = "Cake For Afternoon Tea";
-        Cake birthday = buildCake(cakeName, "afternoon tea cake", "afternoon-tea.jpg", 1);
+    void testFindById() {
+        Cake birthday = buildCake(TITLE_1, DESCRIPTION, IMAGE);
         cakeRepository.save(birthday);
-        assertThat(cakeRepository.findByName(cakeName)).isInstanceOf(List.class);
+        Cake cake = cakeRepository.findAll().stream().filter(c -> c.getTitle().equals(TITLE_1)).findFirst().get();
+        assertThat(cake.getTitle(), is(equalTo(TITLE_1)));
+        assertThat(cake.getDescription(), is(equalTo(DESCRIPTION)));
+        assertThat(cake.getImage(), is(equalTo(IMAGE)));
     }
 
     @Test
-    public void testFindById() {
-        Cake birthday = buildCake("Breakfast cake", "this is amazing cake", "breakfast.jpg", 2);
-        cakeRepository.save(birthday);
-        assertThat(cakeRepository.findById(1L)).isInstanceOf(Optional.class);
+    void testFindAll() {
+        Cake cake1 = buildCake(TITLE_2, DESCRIPTION, IMAGE);
+        cakeRepository.save(cake1);
+        Cake cake2 = buildCake("Wedding", "wedding cake", "wedding.jpg");
+        cakeRepository.save(cake2);
+        assertThat(cakeRepository.findAll().size(), is(greaterThan(2)));
     }
 
-    @Test
-    public void testFindAll() {
-        Cake birthday = buildCake("Christmas", "christmas cake", "christmas.jpg", 4);
-        cakeRepository.save(birthday);
-        Cake wedding = buildCake("Wedding", "wedding cake", "wedding.jpg", 3);
-        cakeRepository.save(wedding);
-        assertThat(cakeRepository.findAll()).isInstanceOf(List.class);
-    }
-
-    private Cake buildCake(String name, String comment, String imageUrl, int yumFactor) {
-        Cake birthday = new Cake();
-        birthday.setName(name);
-        birthday.setComment(comment);
-        birthday.setImageUrl(imageUrl);
-        birthday.setYumFactor(yumFactor);
-        return birthday;
+    private Cake buildCake(String title, String description, String image) {
+        return Cake.builder()
+                .title(title)
+                .description(description)
+                .image(image)
+                .build();
     }
 }

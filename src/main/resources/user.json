@@ -9,12 +9,8 @@
       "*"
     ],
     "roles": [
-      "ROLE_CM_GET_ALL",
-      "ROLE_CM_GET_ONE",
-      "ROLE_CM_UPDATE_ONE",
-      "ROLE_CM_DELETE_ONE",
-      "ROLE_CM_DOWNLOAD_ALL",
-      "ROLE_CM_ADD_ONE"
+      "ROLE_CM_GET",
+      "ROLE_CM_ADD"
     ]
   }
 ]

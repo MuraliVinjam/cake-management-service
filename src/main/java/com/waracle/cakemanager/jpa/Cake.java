@@ -1,14 +1,24 @@
 package com.waracle.cakemanager.jpa;
 
-import org.hibernate.validator.constraints.Range;
-
-import javax.persistence.*;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "Cakes", uniqueConstraints = {@UniqueConstraint(columnNames = "ID"), @UniqueConstraint(columnNames = "NAME")})
+@Table(name = "Cakes", uniqueConstraints = {@UniqueConstraint(columnNames = "ID"), @UniqueConstraint(columnNames = "TITLE")})
 public class Cake implements Serializable {
 
     private static final long serialVersionUID = -1798070786993154676L;
@@ -18,67 +28,49 @@ public class Cake implements Serializable {
     @Column(name = "ID", unique = true, nullable = false)
     private Long id;
 
-    @NotBlank(message = "Name is mandatory")
-    @Size(max=50, message = "Name cannot be greater than 50 characters")
-    @Column(name = "NAME", unique = true, nullable = false, length = 50)
-    private String name;
+    @NotBlank(message = "Title is mandatory")
+    @Size(max = 50, message = "Title cannot be greater than 50 characters")
+    @Column(name = "TITLE", unique = true, nullable = false, length = 50)
+    private String title;
 
     @NotBlank(message = "Image is mandatory")
-    @Size(max=100, message = "Image cannot be greater than 100 characters")
+    @Size(max = 100, message = "Image cannot be greater than 100 characters")
     @Column(name = "IMAGE", nullable = false, length = 100)
-    private String imageUrl;
+    private String image;
 
-    //    @NotBlank(message = "Comment is required")
-    @Size(max=200, message = "Comment cannot be greater than 200 characters")
-    @Column(name = "COMMENT", length = 200)
-    private String comment;
+    @Size(max = 200, message = "Description cannot be greater than 200 characters")
+    @Column(name = "DESCRIPTION", length = 200)
+    private String description;
 
-    @Range(min=0, max=5, message = "Yum Factor must be between 0 and 5")
-    @Column(name = "rating", length = 1)
-    private Integer yumFactor;
-
-
-    public Long getId() { return id; }
-
-    public void setId(Long id) { this.id = id; }
-
-    public String getName() {
-        return name;
+    public Long getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getTitle() {
+        return title;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getComment() {
-        return comment;
+    public String getImage() {
+        return image;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public int getYumFactor() {
-        return yumFactor;
+    public String getDescription() {
+        return description;
     }
 
-    public void setYumFactor(int yumFactor) {
-        this.yumFactor = yumFactor;
+    public void setDescription(String description) {
+        this.description = description;
     }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "Cake[id=%d, name='%s', imageUrl='%s', comment='%s', yumFactor='%s']",
-                getId(), getName(), getComment(), getImageUrl(), getYumFactor());
-    }
-
 }

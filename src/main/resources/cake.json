@@ -1,20 +1,17 @@
 [
   {
-    "name": "Sicilian Soft Icing Cake",
-    "imageUrl": "/SicilianSoftIcingCake.jpg",
-    "comment": "Made with soft icing and nuts etc.",
-    "yumRating": "4"
+    "title": "Sicilian Soft Icing Cake",
+    "image": "/SicilianSoftIcingCake.jpg",
+    "description": "Made with soft icing and nuts etc."
   },
   {
-    "name": "Strawberry Birthday Cake",
-    "imageUrl": "/StrawberryBirthdayCake.jpg",
-    "comment": "Made with Strawberries and nuts etc.",
-    "yumRating": "3"
+    "title": "Strawberry Birthday Cake",
+    "image": "/StrawberryBirthdayCake.jpg",
+    "description": "Made with Strawberries and nuts etc."
   },
   {
-    "name": "Dady DIY Cake",
-    "imageUrl": "/DadyDIYCake.jpg",
-    "comment": "Made with hammer and chisel etc.",
-    "yumRating": "5"
+    "title": "Dady DIY Cake",
+    "image": "/DadyDIYCake.jpg",
+    "description": "Made with hammer and chisel etc."
   }
 ]

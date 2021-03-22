@@ -1,43 +1,42 @@
 package com.waracle.cakemanager;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ResourceLoader;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.waracle.cakemanager.jpa.Cake;
 import com.waracle.cakemanager.jpa.CakeRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.springframework.core.Ordered;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 @SpringBootApplication
-public class CakeManagerApplication {
+public class CakeManagerApplication extends SpringBootServletInitializer {
 
-    @Autowired ResourceLoader resourceLoader;
+    @Autowired
+    ResourceLoader resourceLoader;
 
     private static final Logger logger = LoggerFactory.getLogger(CakeManagerApplication.class);
     private static final String JSON_DATA_URL = "cake.json";
 
     public static void main(String[] args) {
         SpringApplication.run(CakeManagerApplication.class, args);
+    }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(CakeManagerApplication.class);
     }
 
     @Bean
@@ -67,22 +66,19 @@ public class CakeManagerApplication {
                 JsonToken nextToken = parser.nextToken();
                 while (nextToken == JsonToken.START_OBJECT) {
 
-                    Cake cake = new Cake();
+                    Cake cake = Cake.builder().build();
                     logger.debug(parser.nextFieldName());
-                    cake.setName(parser.nextTextValue());
+                    cake.setTitle(parser.nextTextValue());
 
                     logger.debug(parser.nextFieldName());
-                    cake.setImageUrl(parser.nextTextValue());
+                    cake.setImage(parser.nextTextValue());
 
                     logger.debug(parser.nextFieldName());
-                    cake.setComment(parser.nextTextValue());
+                    cake.setDescription(parser.nextTextValue());
 
-                    logger.debug(parser.nextFieldName());
-                    cake.setYumFactor(Integer.parseInt(parser.nextTextValue()));
-
-                    if (!cakeTitles.contains(cake.getName())) {
+                    if (!cakeTitles.contains(cake.getTitle())) {
                         repository.save(cake);
-                        cakeTitles.add(cake.getName());
+                        cakeTitles.add(cake.getTitle());
                     }
 
                     nextToken = parser.nextToken();

@@ -22,21 +22,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests().antMatchers(MATCHER_WARACLE).permitAll().anyRequest().authenticated().and().httpBasic();
     }
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests().antMatchers(MATCHER_WARACLE).authenticated().and().httpBasic();
-//    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("demo").password(passwordEncoder().encode("demo"))
-                .authorities("ROLE_CM_GET_ALL",
-                        "ROLE_CM_GET_ONE",
-                        "ROLE_CM_UPDATE_ONE",
-                        "ROLE_CM_DELETE_ONE",
-                        "ROLE_CM_DOWNLOAD_ALL",
-                        "ROLE_CM_ADD_ONE");
+                .authorities("ROLE_CM_GET", "ROLE_CM_ADD");
     }
 
     @Bean
